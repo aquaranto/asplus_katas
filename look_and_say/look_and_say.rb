@@ -20,19 +20,24 @@ class LookAndSay
   end
 
   def next
-    interim = ""
+    holding_string = ""
+    #for each item in the solutions array, add the count of digits and then the number to the holding string. (so 111 becomes 31)
     @solution.each do |newgrp|
-    	interim << newgrp.length.to_s + newgrp[0]
+    	holding_string << newgrp.length.to_s + newgrp[0]
     end
-    @solution = parse_string interim
+    #reparse solutions to be ready for the next call of #next
+    @solution = parse_string holding_string
+    #return current solution
     self
   end
 
   def parse_string(string)
+    #groups like numbers together 
     string.scan(/((\d)\2*)/).map(&:first)
   end
 
   def to_s
+    #Until #to_s is called @solutions is an array
      @solution.join
   end
 
